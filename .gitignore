@@ -19,3 +19,6 @@
 
 # Go workspace file
 go.work
+
+# git clone https://gitlab.com/go-yp/go-sqlc-example.git
+go-sqlc-example
