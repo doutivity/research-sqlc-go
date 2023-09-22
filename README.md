@@ -26,6 +26,39 @@ user	0m0.168s
 sys	0m0.079s
 ```
 
+### Examples
+```yaml
+version: "2"
+sql:
+  - engine: "postgresql"
+    queries: "./internal/storage/postgres/queries/"
+    schema: "./internal/storage/postgres/migrations/"
+
+    gen:
+      go:
+        package: "dbs"
+        sql_package: "database/sql"
+        out: "./internal/storage/postgres/dbs"
+        emit_prepared_queries: true
+```
+```sql
+-- name: CompanyNewAndGetID :one
+INSERT INTO companies (alias, name, created_by, created_at)
+VALUES (@alias, @name, @created_by, @created_at)
+RETURNING id;
+```
+
+### Development
+```bash
+make create-new-migration-file NAME=migration_name
+```
+```bash
+mkdir -p ./internal/storage/postgres/queries/
+```
+```bash
+make generate-sqlc
+```
+
 ### Tools
 * [github.com/sqlc-dev/sqlc](https://github.com/sqlc-dev/sqlc)
-* [https://github.com/pressly/goose](github.com/pressly/goose)
+* [github.com/pressly/goose](https://github.com/pressly/goose)
