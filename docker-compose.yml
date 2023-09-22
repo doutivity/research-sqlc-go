@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  app:
+    container_name: "research-sqlc-go-app"
+    image: golang:1.21.0-alpine
+    working_dir: /go/src/github.com/doutivity/research-sqlc-go
+    volumes:
+      - .:/go/src/github.com/doutivity/research-sqlc-go
+    command: "sleep infinity"
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: "research-sqlc-postgres"
+    image: postgres:16.0
+    environment:
+      POSTGRES_DB: "yaaws"
+      POSTGRES_USER: "yaroslav"
+      POSTGRES_PASSWORD: "AnySecretPassword!!"
+    ports:
+      - "5432:5432"
